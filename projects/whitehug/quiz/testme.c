@@ -26,9 +26,10 @@ char *inputString()
 {
 	char s[6];			//Use inputChar() to populate a string that matches the size of "reset" which ends the program in an error
 	int i;
-	for(i = 0; i < 4; i++){
+	for(i = 0; i < 5; i++){
 		s[i] = inputChar();
 	}
+	s[5] = '\0';
 	return s;
 }
 
