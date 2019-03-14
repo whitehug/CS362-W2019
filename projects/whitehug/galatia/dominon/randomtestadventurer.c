@@ -3,7 +3,7 @@
 #include<time.h>
 #include"dominion.h"
 
-// Random test for great hall
+// Random test for adventurer
 void testme(){
 	struct gameState* state = newGame()
 	int numPlayers = (rand() % (MAX_PLAYERS - 2)) + 2;
@@ -27,18 +27,15 @@ void testme(){
 	
 	initializeGame(numPlayers,kingdomCards,randomSeed,state);
 
-	int player = whoseTurn(state);
 	int cCount = numHandCards(state);
-	int action = state->numActions;
+	int player = whoseTurn(state);
 
-	//call cardEffect(great_hall,0,0,0,state,handPos,bonus)
+	//Call adventurerCard(0,state,currentPlayer,handPos,temphand,0)
 	
 	if(player != whoseTurn(state)){
-		printf("error in current player\n");}
-	if(cCount != numHandCards(state)){
-		printf("error in number of cards\n");}
-	if(action != state->numActions){
-		printf("error in number of player actions\n");}
+		printf("Error in player\n");}
+	if(cCount + 2 != numHandCards(state)){
+		printf("Error in number of cards\n");}
 
 }
 

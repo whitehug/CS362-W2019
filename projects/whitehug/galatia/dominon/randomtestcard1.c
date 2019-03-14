@@ -1,29 +1,49 @@
-#include "dominion.h"
-#include "dominion_helpers.h"
-#include <string.h>
-#include <stdio.h>
-#include <assert.h>
-#include "rngs.h"
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include"dominion.h"
 
-int main() {
-	int count=0;
-	while(count<10){
-		struct gameState G;
-		int seed=1000;
-		int numPlayers=2;
-		int k[10] = {adventurer, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy, council_room};
-		initializeGame(numPlayers, k, seed, &G);
-		int randplayer=rand()%2;
-		int count1=numHandCards(&G);
-		int value=smithCard(0,randplayer,&G,0);
-		int count2=numHandCards(&G);
-		count1=count2;
-		printf("count1: %d\n", count1);
-		printf("count2: %d\n", count2);
-		assert(value==0);
-		assert(count1==count2);
-		printf("TESTING SUCCEEDED\n");
-		count++;
+// Random test for smithy
+void testme(){
+	struct gameState* state = newGame()
+	int numPlayers = (rand() % (MAX_PLAYERS - 2)) + 2;
+	int randomSeed = rand() % 100;
+	//Generate Kingdom Cards
+	int j;
+	int kingdomCards[10];
+	for(j = 0; j < 10; j++){
+		kingdomCards[j] = 100;
 	}
+	int k;
+	j = 0;
+	while(j < 10){
+		kingdomCards[j] = rand() % 27;
+		for(k = 0; k < j; k++){
+			if(kingdomCards[j] == kingdomCards[k]){
+				j++;}}
+	}
+	
+	initializeGame(numPlayers,kingdomCards,randomSeed,state);
+
+	int player = whoseTurn(state);
+	int cCount = numHandCards(state);
+
+	//Call smithyCard
+
+	if(player != whoseTurn(state)){
+		printf("Error in current player\n");}
+	if(cCount != numHandCards(state) + 2){
+		printf("Error: player has incorrect amount of cards\n");}
+	
+}
+
+int main(){
+	srand(time(NULL));
+
+	int i;
+	for(i = 0; i < 50; i++){
+		testme();
+	}
+
+	return 0;
 }
